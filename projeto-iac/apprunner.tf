@@ -1,9 +1,22 @@
-resource "aws_apprunner_service" "apprunner" {
-  service_name = ""
+resource "aws_apprunner_deployment" "apprunner_deployment" {
+  service_arn = aws_apprunner_service.apprunner_service.arn
+}
+
+resource "aws_apprunner_connection" "apprunner_connection" {
+  connection_name = "dengue-forecast-connection"
+  provider_type   = "GITHUB"
+
+  tags = {
+    Name = "Conexão com o repositório github"
+  }
+}
+
+resource "aws_apprunner_service" "apprunner_service" {
+  service_name = "dengue-forecast-api"
 
   source_configuration {
     authentication_configuration {
-      connection_arn = "" # Inserir o arn da conexão do app runner com o repositório.
+      connection_arn = aws_apprunner_connection.apprunner_connection.arn
     }
     code_repository {
       code_configuration {
@@ -11,14 +24,14 @@ resource "aws_apprunner_service" "apprunner" {
           build_command = "dotnet publish -c Release -o release"
           port          = "8000"
           runtime       = "DOTNET_6"
-          start_command = "dotnet release/XXXXXXXXXXX.dll --urls=http://0.0.0.0:8000"
+          start_command = "dotnet release/DengueForecastApi.dll --urls=http://0.0.0.0:8000"
         }
         configuration_source = "API"
       }
       repository_url = "https://github.com/FranklinAurelio/Engenharia_de_software_PPGCC"
       source_code_version {
         type  = "BRANCH"
-        value = "main"
+        value = "develop"
       }
     }
   }
@@ -30,13 +43,6 @@ resource "aws_apprunner_service" "apprunner" {
     protocol            = "HTTP"
     timeout             = 2
     unhealthy_threshold = 5
-  }
-
-  network_configuration {
-    egress_configuration {
-      egress_type       = "VPC"
-      vpc_connector_arn = "" # Inserir o arn do vpc connector.
-    }
   }
 
   instance_configuration {
