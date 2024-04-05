@@ -1,5 +1,6 @@
 using DengueForecastApi;
 using MiniValidation;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,21 +17,27 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapPost("/obter-forecast", (Modelo modelo) =>
+app.MapPost("/obter-forecast", async (Modelo modelo) =>
 {
     if (!MiniValidator.TryValidate(modelo, out var errors))
         return Results.ValidationProblem(errors);
 
-    var forecast = new Modelo(modelo.Mes,
-                              modelo.Ano,
-                              modelo.Genero,
-                              modelo.Raca,
-                              modelo.Idade,
-                              modelo.DataObito,
-                              modelo.Regiao,
-                              modelo.Uf,
-                              modelo.Municipio,
-                              modelo.QuantidadeCasos);
+    var modeloRequest = new Modelo(modelo.Mes,
+                                   modelo.Ano,
+                                   modelo.Genero,
+                                   modelo.Raca,
+                                   modelo.Idade,
+                                   modelo.DataObito,
+                                   modelo.Regiao,
+                                   modelo.Uf,
+                                   modelo.Municipio,
+                                   modelo.QuantidadeCasos);
+
+    var requestUri = "https://t2lmany4sirkiubtom3r4ksh3e0vtkav.lambda-url.us-east-1.on.aws/";
+    var httpClient = new HttpClient();
+    var stringContent = new StringContent(modeloRequest.ToString(), Encoding.UTF8, "application/json");
+    var result = await httpClient.PostAsync(requestUri, stringContent);
+    var forecast = result.Content.ReadAsStringAsync().Result;
 
     return forecast != null
         ? Results.Ok(forecast)
