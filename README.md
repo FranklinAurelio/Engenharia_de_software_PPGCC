@@ -36,11 +36,11 @@ Definição de Esforço: 1 a 5, sendo 1 pouquíssimo esforço e 5 muito esforço
 ### Etapa 1: Configuração de Projeto 
 
 
-Recurso: GitHub
-Alinhamento e definição do projeto
-Criação de Repositório 
-Configuração de Projeto 
-Criação de Board de Tarefas
+- Recurso: GitHub
+- Alinhamento e definição do projeto
+- Criação de Repositório 
+- Configuração de Projeto 
+- Criação de Board de Tarefas
 
 
 *Esforço Estimado: 2* 
@@ -51,10 +51,10 @@ Criação de Board de Tarefas
 Recurso: Python, Terraform, AWS
 
 
-Definição de base de dados 
-Tratamento de dados
-Análise exploratória de dados
-Criação da infraestrutura como código para provisionamento de serviços na nuvem
+- Definição de base de dados 
+- Tratamento de dados
+- Análise exploratória de dados
+- Criação da infraestrutura como código para provisionamento de serviços na nuvem
 
 
 *Esforço Estimado:  3*
@@ -64,10 +64,11 @@ Criação da infraestrutura como código para provisionamento de serviços na nu
 
 
 Recurso: Stats model, Algoritmo Prophet, Python, C#, .NET
-Análise de Séries Temporais
-Modelagem 
-Treinamento de Modelo 
-Validação de Modelo 
+
+- Análise de Séries Temporais
+- Modelagem 
+- Treinamento de Modelo 
+- Validação de Modelo 
 
 
 *Esforço Estimado:  4*
@@ -75,12 +76,12 @@ Validação de Modelo
 
 ### Etapa 4: Integração entre Back e Front 
 
-Criação dos serviços para consumo das API’s
-Modelagem de dados 
-Desrealização dos dados
-Tratamentos para retornos das APIs
-Criação dos processos assíncronos
-Validação do consumo de dados
+- Criação dos serviços para consumo das API’s
+- Modelagem de dados 
+- Desrealização dos dados
+- Tratamentos para retornos das APIs
+- Criação dos processos assíncronos
+- Validação do consumo de dados
  
 *Esforço Estimado:  4*
  
@@ -88,11 +89,12 @@ Validação do consumo de dados
 
 
 Recurso: Flutter, Dart, Js
-Montagem do ambiente em dart/flutter
-Configuração do ambiente web para a plataforma
-Criação da UI/UX
-Codificação das funcionalidades e telas
-Validação de fluidez
+
+- Montagem do ambiente em dart/flutter
+- Configuração do ambiente web para a plataforma
+- Criação da UI/UX
+- Codificação das funcionalidades e telas
+- Validação de fluidez
 
 
 *Esforço Estimado:  3*
@@ -101,21 +103,21 @@ Validação de fluidez
  
 *Esforço Estimado: 3*
 
- Provisionamento de serviços de computação em nuvem da AWS
-CloudFront, serviço de CDN para entrega da aplicação front-end
-S3, serviço de storage, para armazenamento da aplicação front-end
-App Runner, serviço de aplicação para hospedagem da aplicação back-end
-Lambda Function, serviço de execução de código sem servidor
-Criação do código terraform para implantação da infraestrutura AWS 
+- Provisionamento de serviços de computação em nuvem da AWS
+- CloudFront, serviço de CDN para entrega da aplicação front-end
+- S3, serviço de storage, para armazenamento da aplicação front-end
+- App Runner, serviço de aplicação para hospedagem da aplicação back-end
+- Lambda Function, serviço de execução de código sem servidor
+- Criação do código terraform para implantação da infraestrutura AWS 
  
  
 ### Etapa 7: Documentação 
 
 
-Descrição de frameworks e requisitos técnicos
-Montagem de ambiente
-Funcionalidades
-Controle de versão
+- Descrição de frameworks e requisitos técnicos
+- Montagem de ambiente
+- Funcionalidades
+- Controle de versão
  
 *Esforço Estimado:  2*
 
