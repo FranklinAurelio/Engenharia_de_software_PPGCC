@@ -2,17 +2,19 @@
 
 ## PROJETO: Modelo de FORECASTING Dengue no Brasil 
 
-Descrição do Projeto: O projeto visa desenvolver uma ferramenta com o intuito de realizar previsões do número de casos de dengue no país. A solução disponibilizará uma interface para que o usuário interaja com o modelo de forecasting, definindo a granularidade dessa projeção utilizando dados demográficos históricos como logradouro, unidade federativa, gênero, faixa etária para planejar o futuro.
+### Descrição do Projeto: 
+O projeto visa desenvolver uma ferramenta com o intuito de realizar previsões do número de casos de dengue no país. A solução disponibilizará uma interface para que o usuário interaja com o modelo de forecasting, definindo a granularidade dessa projeção utilizando dados demográficos históricos como logradouro, unidade federativa, gênero, faixa etária para planejar o futuro.
 
 
-Justificativa: A dengue é uma enfermidade que acomete países tropicais como o Brasil. Anualmente, o debate sobre a necessidade de combater e prevenir a doença ressurge quando ela volta à evidência devido à chegada do verão, onde há tradicionalmente um aumento exponencial de casos. A existência dessa ferramenta se justifica ao usarmos os dados históricos oficiais e torná-los um recurso para facilitar o processo de planejamento para o combate à dengue.
+### Justificativa:
+A dengue é uma enfermidade que acomete países tropicais como o Brasil. Anualmente, o debate sobre a necessidade de combater e prevenir a doença ressurge quando ela volta à evidência devido à chegada do verão, onde há tradicionalmente um aumento exponencial de casos. A existência dessa ferramenta se justifica ao usarmos os dados históricos oficiais e torná-los um recurso para facilitar o processo de planejamento para o combate à dengue.
 
 
 ### Fonte de Dados:
 
-Dataset: [https://data.mendeley.com/datasets/2d3kr8zynf/4](https://data.mendeley.com/datasets/2d3kr8zynf/4)
-Fonte: Sistema de Informação de Agravo de Notificação (SINAN)
-Referência
+- Dataset: [https://data.mendeley.com/datasets/2d3kr8zynf/4](https://data.mendeley.com/datasets/2d3kr8zynf/4)
+- Fonte: Sistema de Informação de Agravo de Notificação (SINAN)
+- Referência
 Sampaio, Vanderson; Endo, Patricia; Lynn, Theo; Oliveira, Thomás; Silva Neto, Sebastião; Medeiros Neto, Leonides; Teixiera, Igor (2022), “Arbovirus clinical data, Brazil, 2013–2020”, Mendeley Data, V4, doi: 10.17632/2d3kr8zynf.4
 
 
@@ -36,7 +38,7 @@ Definição de Esforço: 1 a 5, sendo 1 pouquíssimo esforço e 5 muito esforço
 ### Etapa 1: Configuração de Projeto 
 
 
-- Recurso: GitHub
+Recurso: GitHub
 - Alinhamento e definição do projeto
 - Criação de Repositório 
 - Configuração de Projeto 
@@ -76,6 +78,8 @@ Recurso: Stats model, Algoritmo Prophet, Python, C#, .NET
 
 ### Etapa 4: Integração entre Back e Front 
 
+Recurso: Flutter, .Net, Dart
+
 - Criação dos serviços para consumo das API’s
 - Modelagem de dados 
 - Desrealização dos dados
@@ -101,15 +105,13 @@ Recurso: Flutter, Dart, Js
   
 ### Etapa 6: Infra 
  
-*Esforço Estimado: 3*
-
 - Provisionamento de serviços de computação em nuvem da AWS
 - CloudFront, serviço de CDN para entrega da aplicação front-end
 - S3, serviço de storage, para armazenamento da aplicação front-end
 - App Runner, serviço de aplicação para hospedagem da aplicação back-end
 - Lambda Function, serviço de execução de código sem servidor
 - Criação do código terraform para implantação da infraestrutura AWS 
- 
+ *Esforço Estimado: 3*
  
 ### Etapa 7: Documentação 
 
