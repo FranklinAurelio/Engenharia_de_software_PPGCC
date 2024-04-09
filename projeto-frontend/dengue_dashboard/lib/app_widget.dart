@@ -18,7 +18,7 @@ class AppWidget extends StatelessWidget {
       routeInformationParser: Modular.routeInformationParser,
       routerDelegate: Modular.routerDelegate,
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Dengue no Brasil',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,

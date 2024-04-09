@@ -1,3 +1,5 @@
+import 'package:dengue_dashboard/modules/home_module/widgets/gender_radio.dart';
+import 'package:estados_municipios/estados_municipios.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -8,11 +10,29 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _counter = 0;
+  bool isRegiao = false;
+  bool isState = false;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
+  Future<List<String>> getState() async {
+    final controller = EstadosMunicipiosController();
+    final estados = await controller.buscaTodosEstados();
+    print(estados);
+    return [];
+  }
+
+  Future<List<String>> getTown() async {
+    final controller = EstadosMunicipiosController();
+    final municipios = await controller.buscaMunicipiosPorEstado('SP');
+    print(municipios);
+
+    return [];
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await getTown();
     });
   }
 
@@ -21,25 +41,32 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+        title: const Text(
+          'Forecasting da dengue no Brasil',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(
+            height: 15,
+          ),
+          Center(
+            child: Card(
+              color: Colors.cyan[200],
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: 100,
+                child: Column(
+                  children: [RadioGender()],
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
