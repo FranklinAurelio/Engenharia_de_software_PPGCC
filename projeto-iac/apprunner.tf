@@ -2,45 +2,27 @@ resource "aws_apprunner_deployment" "apprunner_deployment" {
   service_arn = aws_apprunner_service.apprunner_service.arn
 }
 
-resource "aws_apprunner_connection" "apprunner_connection" {
-  connection_name = "dengue-forecast-connection"
-  provider_type   = "GITHUB"
-
-  tags = {
-    Name = "Conexão com o repositório github"
-  }
-}
-
 resource "aws_apprunner_service" "apprunner_service" {
-  service_name = "dengue-forecast-api"
-
+  service_name = "DengueForecastApi"
   source_configuration {
-    authentication_configuration {
-      connection_arn = aws_apprunner_connection.apprunner_connection.arn
+    image_repository {
+      image_configuration {
+        port = "80"
+      }
+      image_identifier      = "271525114120.dkr.ecr.us-east-1.amazonaws.com/dengue-forecast-repositorio:latest"
+      image_repository_type = "ECR"
     }
-    code_repository {
-      code_configuration {
-        code_configuration_values {
-          build_command = "dotnet publish -c Release -o release"
-          port          = "8000"
-          runtime       = "DOTNET_6"
-          start_command = "dotnet release/DengueForecastApi.dll --urls=http://0.0.0.0:8000"
-        }
-        configuration_source = "API"
-      }
-      repository_url = "https://github.com/FranklinAurelio/Engenharia_de_software_PPGCC"
-      source_code_version {
-        type  = "BRANCH"
-        value = "develop"
-      }
+    auto_deployments_enabled = true
+    authentication_configuration {
+      access_role_arn = "arn:aws:iam::271525114120:role/service-role/AppRunnerECRAccessRole"
     }
   }
 
   health_check_configuration {
     healthy_threshold   = 1
     interval            = 5
-    path                = "/hc"
-    protocol            = "HTTP"
+    path                = "/"
+    protocol            = "TCP"
     timeout             = 2
     unhealthy_threshold = 5
   }
