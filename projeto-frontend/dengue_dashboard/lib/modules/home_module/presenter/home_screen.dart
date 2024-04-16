@@ -1,3 +1,5 @@
+import 'package:dengue_dashboard/modules/home_module/widgets/datepicker.dart';
+import 'package:dengue_dashboard/modules/home_module/widgets/drop_menu_age.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/drop_menu_region.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/drop_menu_state.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/drop_menu_town.dart';
@@ -77,7 +79,12 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: isLoading
-          ? CircularProgressIndicator()
+          ? const Opacity(
+              opacity: 0.5,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            )
           : Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -88,10 +95,11 @@ class _HomePageState extends State<HomePage> {
                   child: Card(
                     color: Colors.cyan[200],
                     child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.9,
+                      width: MediaQuery.of(context).size.width * 0.95,
                       height: 80,
                       child: Row(
                         children: [
+                          Spacer(),
                           const Center(
                             child: RadioGender(),
                           ),
@@ -108,6 +116,9 @@ class _HomePageState extends State<HomePage> {
                                 isLoading = true;
                               });
                               await getTown(dropdownValue);
+                              setState(() {
+                                dropdownValue = value!;
+                              });
                             },
                             dropdownMenuEntries: states
                                 .map<DropdownMenuEntry<String>>((String value) {
@@ -122,7 +133,24 @@ class _HomePageState extends State<HomePage> {
                               ? DropdownMenuTown(list: towns)
                               : const SizedBox(
                                   width: 0,
+                                ),
+                          isState
+                              ? const SizedBox(
+                                  width: 10,
                                 )
+                              : const SizedBox(
+                                  width: 0,
+                                ),
+                          const SizedBox(
+                            width: 120,
+                            height: 50,
+                            child: DatePickerFilter(),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          const DropdownMenuAge(),
+                          Spacer(),
                         ],
                       ),
                     ),
