@@ -33,7 +33,7 @@ app.MapPost("/obter-forecast", async (Modelo modelo) =>
                                    modelo.Municipio,
                                    modelo.QuantidadeCasos);
 
-    var requestUri = "https://t2lmany4sirkiubtom3r4ksh3e0vtkav.lambda-url.us-east-1.on.aws/";
+    var requestUri = "https://vgl6enaghduhpbmk7ga6xicr5u0ddpfa.lambda-url.us-east-1.on.aws/";
     var httpClient = new HttpClient();
     var stringContent = new StringContent(modeloRequest.ToString(), Encoding.UTF8, "application/json");
     var result = await httpClient.PostAsync(requestUri, stringContent);
