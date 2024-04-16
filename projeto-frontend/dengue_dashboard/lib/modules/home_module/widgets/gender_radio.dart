@@ -16,6 +16,9 @@ class _RadioGenderState extends State<RadioGender> {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
+        const SizedBox(
+          width: 5,
+        ),
         Radio<Gender>(
           value: Gender.masculino,
           groupValue: _gender,
