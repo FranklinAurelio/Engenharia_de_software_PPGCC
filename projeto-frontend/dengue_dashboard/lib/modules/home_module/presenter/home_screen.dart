@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await getTown();
+      //await getTown();
     });
   }
 
@@ -59,9 +59,13 @@ class _HomePageState extends State<HomePage> {
               color: Colors.cyan[200],
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.9,
-                height: 100,
-                child: Column(
-                  children: [RadioGender()],
+                height: 80,
+                child: Row(
+                  children: [
+                    Center(
+                      child: RadioGender(),
+                    ),
+                  ],
                 ),
               ),
             ),

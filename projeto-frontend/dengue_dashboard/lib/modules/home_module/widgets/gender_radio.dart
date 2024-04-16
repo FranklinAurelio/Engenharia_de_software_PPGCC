@@ -14,37 +14,45 @@ class _RadioGenderState extends State<RadioGender> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       children: <Widget>[
-        ListTile(
-          title: const Text(
-            'Masculino',
-            style: TextStyle(fontWeight: FontWeight.w500),
-          ),
-          leading: Radio<Gender>(
-            value: Gender.masculino,
-            groupValue: _gender,
-            onChanged: (Gender? value) {
-              setState(() {
-                _gender = value;
-              });
-            },
-          ),
+        Radio<Gender>(
+          value: Gender.masculino,
+          groupValue: _gender,
+          onChanged: (Gender? value) {
+            setState(() {
+              _gender = value;
+            });
+          },
         ),
-        ListTile(
-          title: const Text(
-            'Feminino',
-            style: TextStyle(fontWeight: FontWeight.w500),
-          ),
-          leading: Radio<Gender>(
-            value: Gender.feminino,
-            groupValue: _gender,
-            onChanged: (Gender? value) {
-              setState(() {
-                _gender = value;
-              });
-            },
-          ),
+        const SizedBox(
+          width: 5,
+        ),
+        const Text(
+          'Masculino',
+          style: TextStyle(fontWeight: FontWeight.w800),
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        Radio<Gender>(
+          value: Gender.feminino,
+          groupValue: _gender,
+          onChanged: (Gender? value) {
+            setState(() {
+              _gender = value;
+            });
+          },
+        ),
+        const SizedBox(
+          width: 5,
+        ),
+        const Text(
+          'Feminino',
+          style: TextStyle(fontWeight: FontWeight.w800),
+        ),
+        const SizedBox(
+          width: 10,
         ),
       ],
     );
