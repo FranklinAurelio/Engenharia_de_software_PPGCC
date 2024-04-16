@@ -1,0 +1,131 @@
+Attribute,Description,Value
+ID_AGRAVO,ICD disease code,Number
+DT_NOTIFIC,Notification date,Date (dd/mm/yyyy)
+SEM_NOT,Epidemiological notification week,Number
+NU_ANO,Notification year,Number
+SG_UF_NOT,Acronym of the state of the health unit,Text
+ID_MUNICIP,City of Health Unit (IBGE Code),Number
+ID_REGIONA,Health facility code,Number
+ID_UNIDADE,Health facility code,Number
+DT_SIN_PRI,Date of onset of severe symptoms,Date (dd/mm/yyyy)
+SEM_PRI,Epidemiological week of onset of symptoms,Number
+DT_NASC,Patient date of birth,Date (dd/mm/yyyy)
+NU_IDADE_N,Patient age,Number
+CS_SEXO,Pacient sex,1. Male
+,,2. Female
+CS_GESTANT,Gestational Age of the Patient (Quarter) in case CS_SEXO=Female,1. 1st Quarter
+,,2. 2nd Quarter
+,,3. 3rd Quarter
+,,4. Gestational age ignored
+,,5. No
+,,6. Not applicable
+,,9. Ignored
+CS_RACA,Patient Race,1. White
+,,2. Black
+,,3. Yellow
+,,4. Brown
+,,5. Indigenous
+,,9. Ignored
+CS_ESCOL_N,Patient education,1. Elementary School incomplete
+,,2. Elementary School complete
+,,3. Middle School incomplete
+,,4. Middle School complete
+,,5. High School incomplete
+,,6. High School complete
+,,7. College incomplete
+,,8. College complete
+,,9. Ignored
+,,10. Not applicable
+SG_UF,Patient status (IBGE code),Number
+ID_MN_RESI,City of the patient (IBGE code),Number
+ID_RG_RESI,Health facility code,Number
+CS_ZONA,Residence area,1. Urban
+,,2. Rural
+,,3. Periurban
+,,9. Ignored
+ID_PAIS,Patient Country Code (IBGE Code),Number
+DT_INVEST,Start date of case investigation,Date (dd/mm/yyyy)
+TPAUTOCTO,Indicates whether the case is indigenous to the municipality of residence.,1. Yes
+,,2. No
+,,3. Undetermined
+COUFINF,State where the patient was infected (IBGE Code),Number
+COPAISINF,Country where the patient was infected (IBGE Code),Number
+COMUNINF,City where the patient was infected (IBGE Code),Number
+EVOLUCAO,Case evolution,1. Healing
+,,2. Death by grievance
+,,3. Death from other causes
+,,4. Death under investigation
+,,9. Ignored
+DT_ENCERRA,Case Closing Date,Date (dd/mm/yyyy)
+FEBRE,Symptom - Fever,1. Yes
+,,2. No
+MIALGIA,Symptom - Myalgia,1. Yes
+,,2. No
+CEFALEIA,Symptom - Headache,1. Yes
+,,2. No
+EXANTEMA,Symptom - Rash,1. Yes
+,,2. No
+VOMITO,Symptom - Vomiting,1. Yes
+,,2. No
+NAUSEA,Symptom - Nausea,1. Yes
+,,2. No
+DOR_COSTAS,Symptom - Back Pain,1. Yes
+,,2. No
+CONJUNTVIT,Symptom - Conjunctivitis,1. Yes
+,,2. No
+ARTRITE,Symptom - Arthritis,1. Yes
+,,2. No
+ARTRALGIA,Symptom - Arthralgia,1. Yes
+,,2. No
+PETEQUIA_N,Symptom - Petechiae,1. Yes
+,,2. No
+LACO,Symptom - Tourniquet test,1. Yes
+,,2. No
+DOR_RETRO,Symptom - Retroorbital pain,1. Yes
+,,2. No
+DIABETES,Pre-existing disease - Diabetes,1. Yes
+,,2. No
+HEMATOLOG,Pre-existing disease - Hematological diseases,1. Yes
+,,2. No
+HEPATOPAT,Pre-existing disease - Liver diseases,1. Yes
+,,2. No
+RENAL,Pre-existing disease - Kidney disease,1. Yes
+,,2. No
+HIPERTENSA,Pre-existing disease - Hypertension,1. Yes
+,,2. No
+AUTO_IMUNE,Pre-existing disease - Autoimmune disease,1. Yes
+,,2. No
+AUTO_IMUNE,Pre-existing disease - Autoimmune disease,1. Yes
+,,2. No
+RESUL_SORO,Serological Test Results (IgM) Dengue,1. Reagent
+,,2. Non-reactive
+,,3. Inconclusive
+,,4. Not performed
+RESUL_NS1,Test Result Serology ELISA,1. Positive
+,,2. Negative
+,,3. Inconclusive
+,,4. Not performed
+RESUL_VI_N,Test Result Viral Isolation,1. Positive
+,,2. Negative
+,,3. Inconclusive
+,,4. Not performed
+RESUL_PCR_,RT-PCR Exam Result,1. Positive
+,,2. Negative
+,,3. Inconclusive
+,,4. Not performed
+HISTOPA_N,Histopathology Test Result,1. Positive
+,,2. Negative
+,,3. Inconclusive
+,,4. Not performed
+IMUNOH_N,Immunohistochemistry Test Result,1. Positive
+,,2. Negative
+,,3. Inconclusive
+,,4. Not performed
+HOSPITALIZ,If the patient was hospitalized,1. Yes
+,,2. No
+,,9. Ignored
+LEUCOPENIA,Leukopenia - Low level of white blood cells in the blood,1. Yes
+,,2. No
+CLASSI_FIN,Final patient classification,Chikungunya
+,,Dengue
+,,Discared/Inconclusive
