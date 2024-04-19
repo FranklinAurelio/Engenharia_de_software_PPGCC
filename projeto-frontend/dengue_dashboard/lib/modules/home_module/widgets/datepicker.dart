@@ -1,3 +1,4 @@
+import 'package:dengue_dashboard/core/data_persist_service.dart';
 import 'package:flutter/material.dart';
 
 class DatePickerFilter extends StatefulWidget {
@@ -51,13 +52,14 @@ class _DatePickerFilterState extends State<DatePickerFilter>
         _restorableDatePickerRouteFuture, 'date_picker_route_future');
   }
 
-  void _selectDate(DateTime? newSelectedDate) {
+  void _selectDate(DateTime? newSelectedDate) async {
     if (newSelectedDate != null) {
       setState(() {
         _selectedDate.value = newSelectedDate;
         selectedDate =
             '${_selectedDate.value.month}/${_selectedDate.value.year}';
       });
+      await insertData(3, 'data', selectedDate);
     }
   }
 

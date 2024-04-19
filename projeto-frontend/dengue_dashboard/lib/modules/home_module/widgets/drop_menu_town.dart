@@ -1,3 +1,4 @@
+import 'package:dengue_dashboard/core/data_persist_service.dart';
 import 'package:dengue_dashboard/modules/constants/region_const.dart';
 import 'package:flutter/material.dart';
 
@@ -22,10 +23,11 @@ class _DropdownMenuTownState extends State<DropdownMenuTown> {
     return DropdownMenu<String>(
       label: const Text('Cidade'),
       initialSelection: widget.list.first,
-      onSelected: (String? value) {
+      onSelected: (String? value) async {
         setState(() {
           dropdownValue = value!;
         });
+        await insertData(3, 'cidade', value);
       },
       dropdownMenuEntries:
           widget.list.map<DropdownMenuEntry<String>>((String value) {

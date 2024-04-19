@@ -1,3 +1,5 @@
+import 'package:dengue_dashboard/core/data_persist_service.dart';
+import 'package:dengue_dashboard/modules/constants/region_const.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/datepicker.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/drop_menu_age.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/drop_menu_region.dart';
@@ -27,13 +29,25 @@ class _HomePageState extends State<HomePage> {
   Future<List<String>> getState() async {
     final controller = EstadosMunicipiosController();
     final estados = await controller.buscaTodosEstados();
+    var regiao = await readData('regiao', 3);
+    setState(() {
+      states = [];
+    });
 
     for (int i = 0; i < estados.length; i++) {
-      print(estados[i].nome);
-      states.add(estados[i].sigla);
+      print(estados[i].regiao.nome);
+      if (estados[i].regiao.nome == regiao) {
+        states.add(estados[i].sigla);
+      } else if (regiao == null) {
+        states.add(estados[i].sigla);
+      }
     }
+
     setState(() {
       isLoading = false;
+      dropdownValue = states.first;
+    });
+    setState(() {
       dropdownValue = states.first;
     });
     return [];
@@ -50,6 +64,9 @@ class _HomePageState extends State<HomePage> {
       print(municipios[i].nome);
       towns.add(municipios[i].nome);
     }
+    await Future.delayed(
+      const Duration(seconds: 2),
+    );
     setState(() {
       isLoading = false;
       dropdownValueTown = towns.first;
@@ -103,7 +120,29 @@ class _HomePageState extends State<HomePage> {
                           const Center(
                             child: RadioGender(),
                           ),
-                          const DropdownMenuRegion(),
+                          DropdownMenu<String>(
+                            label: const Text('Região'),
+                            initialSelection: listRegion.first,
+                            onSelected: (String? value) async {
+                              setState(() {
+                                dropdownValue = value!;
+                                isLoading = true;
+                              });
+                              await getState();
+                              await Future.delayed(
+                                const Duration(seconds: 2),
+                              );
+                              setState(() {
+                                dropdownValue = value!;
+                              });
+                              await insertData(3, 'regiao', value);
+                            },
+                            dropdownMenuEntries: listRegion
+                                .map<DropdownMenuEntry<String>>((String value) {
+                              return DropdownMenuEntry<String>(
+                                  value: value, label: value);
+                            }).toList(),
+                          ),
                           const SizedBox(
                             width: 10,
                           ),
@@ -116,9 +155,13 @@ class _HomePageState extends State<HomePage> {
                                 isLoading = true;
                               });
                               await getTown(dropdownValue);
+                              await Future.delayed(
+                                const Duration(seconds: 2),
+                              );
                               setState(() {
                                 dropdownValue = value!;
                               });
+                              await insertData(3, 'estado', value);
                             },
                             dropdownMenuEntries: states
                                 .map<DropdownMenuEntry<String>>((String value) {
