@@ -1,3 +1,5 @@
+import 'dart:js_interop';
+
 import 'package:dengue_dashboard/core/data_persist_service.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +29,7 @@ class _RadioGenderState extends State<RadioGender> {
             setState(() {
               _gender = value;
             });
-            await insertData(3, 'genero', value);
+            await insertData(3, 'genero', 'masculino');
           },
         ),
         const SizedBox(
@@ -47,7 +49,7 @@ class _RadioGenderState extends State<RadioGender> {
             setState(() {
               _gender = value;
             });
-            await insertData(3, 'genero', value);
+            await insertData(3, 'genero', 'feminino');
           },
         ),
         const SizedBox(
