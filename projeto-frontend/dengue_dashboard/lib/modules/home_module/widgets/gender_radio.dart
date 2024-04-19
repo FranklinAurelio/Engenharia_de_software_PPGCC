@@ -1,3 +1,4 @@
+import 'package:dengue_dashboard/core/data_persist_service.dart';
 import 'package:flutter/material.dart';
 
 enum Gender { feminino, masculino }
@@ -22,10 +23,11 @@ class _RadioGenderState extends State<RadioGender> {
         Radio<Gender>(
           value: Gender.masculino,
           groupValue: _gender,
-          onChanged: (Gender? value) {
+          onChanged: (Gender? value) async {
             setState(() {
               _gender = value;
             });
+            await insertData(3, 'genero', value);
           },
         ),
         const SizedBox(
@@ -41,10 +43,11 @@ class _RadioGenderState extends State<RadioGender> {
         Radio<Gender>(
           value: Gender.feminino,
           groupValue: _gender,
-          onChanged: (Gender? value) {
+          onChanged: (Gender? value) async {
             setState(() {
               _gender = value;
             });
+            await insertData(3, 'genero', value);
           },
         ),
         const SizedBox(

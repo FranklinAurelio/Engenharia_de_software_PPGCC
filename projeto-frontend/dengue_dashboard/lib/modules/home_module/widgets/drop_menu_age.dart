@@ -1,3 +1,4 @@
+import 'package:dengue_dashboard/core/data_persist_service.dart';
 import 'package:dengue_dashboard/modules/constants/age.dart';
 import 'package:dengue_dashboard/modules/constants/region_const.dart';
 import 'package:flutter/material.dart';
@@ -27,10 +28,11 @@ class _DropdownMenuAgeState extends State<DropdownMenuAge> {
     return DropdownMenu<String>(
       label: const Text('Idade'),
       initialSelection: list.first,
-      onSelected: (String? value) {
+      onSelected: (String? value) async {
         setState(() {
           dropdownValue = value!;
         });
+        await insertData(3, 'idade', dropdownValue);
       },
       dropdownMenuEntries: list.map<DropdownMenuEntry<String>>((String value) {
         return DropdownMenuEntry<String>(value: value, label: value);

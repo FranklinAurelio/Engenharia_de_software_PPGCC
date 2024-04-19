@@ -1,3 +1,4 @@
+import 'package:dengue_dashboard/core/data_persist_service.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/datepicker.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/drop_menu_age.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/drop_menu_region.dart';
@@ -119,6 +120,7 @@ class _HomePageState extends State<HomePage> {
                               setState(() {
                                 dropdownValue = value!;
                               });
+                              await insertData(3, 'estado', value);
                             },
                             dropdownMenuEntries: states
                                 .map<DropdownMenuEntry<String>>((String value) {
