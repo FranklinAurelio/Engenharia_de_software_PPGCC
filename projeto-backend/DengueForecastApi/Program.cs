@@ -37,9 +37,9 @@ app.MapPost("/obter-forecast", async (Modelo modelo) =>
     var httpClient = new HttpClient();
     var stringContent = new StringContent(modeloRequest.ToString(), Encoding.UTF8, "application/json");
     var result = await httpClient.PostAsync(requestUri, stringContent);
-    var forecast = result.Content.ReadAsStringAsync().Result;
+    var forecast = result.Content.ReadAsStringAsync().Result ?? string.Empty;
 
-    return forecast != null
+    return forecast.Any()
         ? Results.Ok(forecast)
         : Results.NotFound("Nenhum resultado obtido.");
 })
