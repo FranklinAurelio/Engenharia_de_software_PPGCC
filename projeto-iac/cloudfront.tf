@@ -15,12 +15,20 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     domain_name              = aws_s3_bucket.s3_bucket.bucket_regional_domain_name
     origin_access_control_id = aws_cloudfront_origin_access_control.origin_access_control.id
     origin_id                = aws_s3_bucket.s3_bucket.id
+    origin_path              = "/index.html"
   }
 
   enabled             = true
   is_ipv6_enabled     = true
   comment             = "Distribuição cloudfront para a aplicação front-end"
-  default_root_object = "teste1.html"
+  default_root_object = "index.html"
+
+  custom_error_response {
+    error_code            = 404
+    response_code         = 200
+    response_page_path    = "/custom_404.html"
+    error_caching_min_ttl = 10
+  }
 
   #   aliases = ["mysite.example.com", "yoursite.example.com"]
 
