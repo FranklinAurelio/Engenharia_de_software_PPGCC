@@ -19,13 +19,3 @@ resource "aws_lambda_function_url" "test_latest" {
   function_name      = aws_lambda_function.lambda_function.function_name
   authorization_type = "NONE"
 }
-
-output "lambdas" {
-  value = [{
-    arn           = aws_lambda_function.lambda_function.arn
-    name          = aws_lambda_function.lambda_function.function_name
-    description   = aws_lambda_function.lambda_function.description
-    version       = aws_lambda_function.lambda_function.version
-    last_modified = aws_lambda_function.lambda_function.last_modified
-  }]
-}
