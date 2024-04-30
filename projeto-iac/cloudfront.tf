@@ -24,9 +24,9 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   default_root_object = "index.html"
 
   custom_error_response {
-    error_code            = 404
+    error_code            = 400
     response_code         = 200
-    response_page_path    = "/custom_404.html"
+    response_page_path    = "/index.html"
     error_caching_min_ttl = 10
   }
 
