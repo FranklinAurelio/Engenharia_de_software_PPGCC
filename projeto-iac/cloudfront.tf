@@ -15,7 +15,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     domain_name              = aws_s3_bucket.s3_bucket.bucket_regional_domain_name
     origin_access_control_id = aws_cloudfront_origin_access_control.origin_access_control.id
     origin_id                = aws_s3_bucket.s3_bucket.id
-    origin_path              = "/index.html"
+    # origin_path              = "/"
   }
 
   enabled             = true
@@ -49,7 +49,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   restrictions {
     geo_restriction {
       restriction_type = "whitelist"
-      locations        = ["BR"]
+      locations        = ["BR", "US"]
     }
   }
 

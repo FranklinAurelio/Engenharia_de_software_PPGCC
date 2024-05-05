@@ -17,21 +17,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapPost("/obter-forecast", async (Modelo modelo) =>
+app.MapPost("/obter-forecast", async (ModeloRequest modeloRequest) =>
 {
-    if (!MiniValidator.TryValidate(modelo, out var errors))
+    if (!MiniValidator.TryValidate(modeloRequest, out var errors))
         return Results.ValidationProblem(errors);
-
-    var modeloRequest = new Modelo(modelo.Mes,
-                                   modelo.Ano,
-                                   modelo.Genero,
-                                   modelo.Raca,
-                                   modelo.Idade,
-                                   modelo.DataObito,
-                                   modelo.Regiao,
-                                   modelo.Uf,
-                                   modelo.Municipio,
-                                   modelo.QuantidadeCasos);
 
     var requestUri = "https://vgl6enaghduhpbmk7ga6xicr5u0ddpfa.lambda-url.us-east-1.on.aws/";
     var httpClient = new HttpClient();
@@ -44,7 +33,7 @@ app.MapPost("/obter-forecast", async (Modelo modelo) =>
         : Results.NotFound("Nenhum resultado obtido.");
 })
     .ProducesValidationProblem()
-    .Produces<List<Modelo>>(StatusCodes.Status200OK)
+    .Produces<List<ModeloResponse>>(StatusCodes.Status200OK)
     .Produces(StatusCodes.Status404NotFound)
     .WithName("DengueForecast");
 
