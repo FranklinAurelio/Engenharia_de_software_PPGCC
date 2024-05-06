@@ -154,10 +154,10 @@ class _HomePageState extends State<HomePage> {
                                 dropdownValue = value!;
                                 isLoading = true;
                               });
-                              await getTown(dropdownValue);
-                              await Future.delayed(
-                                const Duration(seconds: 2),
-                              );
+                              //await getTown(dropdownValue);
+                              // await Future.delayed(
+                              //const Duration(seconds: 2),
+                              //);
                               setState(() {
                                 dropdownValue = value!;
                               });
@@ -172,7 +172,7 @@ class _HomePageState extends State<HomePage> {
                           const SizedBox(
                             width: 10,
                           ),
-                          isState
+                          /* isState
                               ? DropdownMenuTown(list: towns)
                               : const SizedBox(
                                   width: 0,
@@ -191,7 +191,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           const SizedBox(
                             width: 10,
-                          ),
+                          ),*/
                           const DropdownMenuAge(),
                           Spacer(),
                         ],

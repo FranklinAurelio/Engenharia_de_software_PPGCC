@@ -26,7 +26,7 @@ class _DropdownMenuAgeState extends State<DropdownMenuAge> {
   @override
   Widget build(BuildContext context) {
     return DropdownMenu<String>(
-      label: const Text('Idade'),
+      label: const Text('Faixa etária'),
       initialSelection: list.first,
       onSelected: (String? value) async {
         setState(() {
