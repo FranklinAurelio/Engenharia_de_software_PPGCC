@@ -1,4 +1,4 @@
 ﻿namespace DengueForecastApi
 {
-    public record ModeloResponse(int Pacientes, DateTime Data);
+    public record ModeloResponse(int Pacientes, string Data);
 }
