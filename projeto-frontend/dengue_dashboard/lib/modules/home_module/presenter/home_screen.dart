@@ -1,5 +1,6 @@
 import 'package:dengue_dashboard/core/data_persist_service.dart';
 import 'package:dengue_dashboard/modules/constants/region_const.dart';
+import 'package:dengue_dashboard/modules/home_module/widgets/charts.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/datepicker.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/drop_menu_age.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/drop_menu_region.dart';
@@ -154,10 +155,10 @@ class _HomePageState extends State<HomePage> {
                                 dropdownValue = value!;
                                 isLoading = true;
                               });
-                              await getTown(dropdownValue);
-                              await Future.delayed(
-                                const Duration(seconds: 2),
-                              );
+                              //await getTown(dropdownValue);
+                              // await Future.delayed(
+                              //const Duration(seconds: 2),
+                              //);
                               setState(() {
                                 dropdownValue = value!;
                               });
@@ -172,7 +173,7 @@ class _HomePageState extends State<HomePage> {
                           const SizedBox(
                             width: 10,
                           ),
-                          isState
+                          /* isState
                               ? DropdownMenuTown(list: towns)
                               : const SizedBox(
                                   width: 0,
@@ -191,14 +192,22 @@ class _HomePageState extends State<HomePage> {
                           ),
                           const SizedBox(
                             width: 10,
-                          ),
+                          ),*/
                           const DropdownMenuAge(),
                           Spacer(),
                         ],
                       ),
                     ),
                   ),
-                )
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.05,
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  child: ChartScreen(),
+                ),
               ],
             ),
     );

@@ -1,1 +1,1 @@
-List<int> ages = List<int>.generate(100, (index) => index + 1);
+List<String> ages = ['Crianças', 'Jovens', 'Adultos', 'Idosos'];
