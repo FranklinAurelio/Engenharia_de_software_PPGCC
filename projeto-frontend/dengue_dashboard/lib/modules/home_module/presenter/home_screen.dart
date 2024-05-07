@@ -1,5 +1,6 @@
 import 'package:dengue_dashboard/core/data_persist_service.dart';
 import 'package:dengue_dashboard/modules/constants/region_const.dart';
+import 'package:dengue_dashboard/modules/home_module/widgets/charts.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/datepicker.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/drop_menu_age.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/drop_menu_region.dart';
@@ -198,7 +199,15 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                )
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.05,
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  child: ChartScreen(),
+                ),
               ],
             ),
     );
