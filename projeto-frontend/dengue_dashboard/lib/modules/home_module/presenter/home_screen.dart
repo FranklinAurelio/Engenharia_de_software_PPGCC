@@ -25,12 +25,14 @@ class _HomePageState extends State<HomePage> {
   bool isLoading = true;
   ValueNotifier<bool> selected = ValueNotifier(false);
   String dropdownValue = '';
+  String dropdownValueZone = '';
   String dropdownValueTown = '';
 
   Future<List<String>> getState() async {
     final controller = EstadosMunicipiosController();
     final estados = await controller.buscaTodosEstados();
-    var regiao = await readData('regiao', 3);
+    var regiao = dropdownValueZone;
+    var x = await readData('regiao', 3);
     setState(() {
       states = [];
     });
@@ -39,7 +41,7 @@ class _HomePageState extends State<HomePage> {
       print(estados[i].regiao.nome);
       if (estados[i].regiao.nome == regiao) {
         states.add(estados[i].sigla);
-      } else if (regiao == null) {
+      } else if (regiao == "") {
         states.add(estados[i].sigla);
       }
     }
@@ -49,6 +51,7 @@ class _HomePageState extends State<HomePage> {
       dropdownValue = states.first;
     });
     setState(() {
+      //dropdownValueZone = listRegion.first;
       dropdownValue = states.first;
     });
     return [];
@@ -126,16 +129,16 @@ class _HomePageState extends State<HomePage> {
                             initialSelection: listRegion.first,
                             onSelected: (String? value) async {
                               setState(() {
-                                dropdownValue = value!;
+                                dropdownValueZone = value!;
                                 isLoading = true;
                               });
                               await getState();
                               await Future.delayed(
                                 const Duration(seconds: 2),
                               );
-                              setState(() {
-                                dropdownValue = value!;
-                              });
+                              /*setState(() {
+                                dropdownValueZone = value!;
+                              });*/
                               await insertData(3, 'regiao', value);
                             },
                             dropdownMenuEntries: listRegion
@@ -153,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                             onSelected: (String? value) async {
                               setState(() {
                                 dropdownValue = value!;
-                                isLoading = true;
+                                //isLoading = true;
                               });
                               //await getTown(dropdownValue);
                               // await Future.delayed(
