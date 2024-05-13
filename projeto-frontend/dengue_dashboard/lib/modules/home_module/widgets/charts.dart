@@ -63,14 +63,41 @@ class _ChartScreenState extends State<ChartScreen> {
     );
     Widget text;
     switch (value.toInt()) {
+      case 0:
+        text = const Text('JAN', style: style);
+        break;
+      case 1:
+        text = const Text('FEV', style: style);
+        break;
       case 2:
         text = const Text('MAR', style: style);
+        break;
+      case 3:
+        text = const Text('ABR', style: style);
+        break;
+      case 4:
+        text = const Text('MAI', style: style);
         break;
       case 5:
         text = const Text('JUN', style: style);
         break;
+      case 6:
+        text = const Text('JUL', style: style);
+        break;
+      case 7:
+        text = const Text('AGO', style: style);
+        break;
       case 8:
         text = const Text('SEP', style: style);
+        break;
+      case 9:
+        text = const Text('OUT', style: style);
+        break;
+      case 10:
+        text = const Text('NOV', style: style);
+        break;
+      case 11:
+        text = const Text('DEZ', style: style);
         break;
       default:
         text = const Text('', style: style);
@@ -163,11 +190,16 @@ class _ChartScreenState extends State<ChartScreen> {
         LineChartBarData(
           spots: const [
             FlSpot(0, 3),
-            FlSpot(2.6, 2),
-            FlSpot(4.9, 5),
-            FlSpot(6.8, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 8),
+            FlSpot(1, 9),
+            FlSpot(2, 5),
+            FlSpot(3, 3.1),
+            FlSpot(4, 4),
+            FlSpot(5, 8),
+            FlSpot(6, 4),
+            FlSpot(7, 3),
+            FlSpot(8, 2),
+            FlSpot(9, 8),
+            FlSpot(10, 0.1),
             FlSpot(11, 4),
           ],
           isCurved: true,
