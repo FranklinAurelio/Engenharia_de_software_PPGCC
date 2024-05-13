@@ -7,6 +7,7 @@ import 'package:dengue_dashboard/modules/home_module/widgets/drop_menu_region.da
 import 'package:dengue_dashboard/modules/home_module/widgets/drop_menu_state.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/drop_menu_town.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/gender_radio.dart';
+import 'package:dengue_dashboard/modules/home_module/widgets/list_view_screen.dart';
 import 'package:estados_municipios/estados_municipios.dart';
 import 'package:flutter/material.dart';
 
@@ -197,6 +198,23 @@ class _HomePageState extends State<HomePage> {
                             width: 10,
                           ),*/
                           const DropdownMenuAge(),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          GestureDetector(
+                            onTap: () {},
+                            child: Card(
+                              color: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50.0),
+                              ),
+                              child: const SizedBox(
+                                width: 50,
+                                height: 50,
+                                child: Icon(Icons.search),
+                              ),
+                            ),
+                          ),
                           Spacer(),
                         ],
                       ),
@@ -206,10 +224,55 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.05,
                 ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  child: ChartScreen(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      height: MediaQuery.of(context).size.height * 0.5,
+                      child: ChartScreen(),
+                    ),
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            Card(
+                              color: Colors.amber[300],
+                              child: const SizedBox(
+                                height: 20,
+                                width: 60,
+                                child: Text(
+                                  'Data',
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Card(
+                              color: Colors.amber[300],
+                              child: const SizedBox(
+                                height: 20,
+                                width: 60,
+                                child: Text(
+                                  'Casos',
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.13,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        ListScreen(),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),
