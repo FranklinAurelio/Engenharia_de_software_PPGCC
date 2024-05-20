@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 
-abstract class ZurichException extends Equatable implements Exception {
+abstract class DengueException extends Equatable implements Exception {
   final String? message;
 
-  const ZurichException([this.message]);
+  const DengueException([this.message]);
 }
 
-class ServerException extends ZurichException {
+class ServerException extends DengueException {
   // ignore: annotate_overrides, overridden_fields
   final String? message;
 
@@ -17,17 +17,17 @@ class ServerException extends ZurichException {
   List<Object> get props => [];
 }
 
-class BadRequestException extends ZurichException {
+class BadRequestException extends DengueException {
   @override
   List<Object> get props => [];
 }
 
-class NoAuthorizationException extends ZurichException {
+class NoAuthorizationException extends DengueException {
   @override
   List<Object> get props => [];
 }
 
-class NotFoundException extends ZurichException {
+class NotFoundException extends DengueException {
   @override
   List<Object> get props => [];
 }
