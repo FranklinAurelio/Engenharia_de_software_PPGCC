@@ -1,2 +1,5 @@
 pandas
-pyarrow
+# pyarrow
+# flask
+# flask_compress
+# ujson

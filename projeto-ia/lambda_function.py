@@ -3,6 +3,7 @@ import pandas as pd
 import models.Forecast as forecast_model
 import models.Prediction as prediction_model
 import models.Historical as historical_model
+import models.ForecastResult as forecast_result
 from backend_model_functions import forecast_plot_backend
 
 def lambda_handler(event, context):
@@ -35,24 +36,28 @@ def lambda_handler(event, context):
                                                         for index, row in historical.iterrows()]
 
     forecast_dict = [forecst.to_dict() for forecst in forecast_dataframe]
-    forecast_json = json.dumps(forecast_dict, ensure_ascii=False, indent=4)
+    # forecast_json = json.dumps(forecast_dict)
 
     prediction_dict = [predict.to_dict() for predict in prediction_dataframe]
-    prediction_json = json.dumps(prediction_dict, ensure_ascii=False, indent=4)
+    # prediction_json = json.dumps(prediction_dict)
 
     historical_dict = [historic.to_dict() for historic in historical_dataframe]
-    historical_json = json.dumps(historical_dict, ensure_ascii=False, indent=4)
+    # historical_json = json.dumps(historical_dict)
 
-    result = [
-       {"historical": historical_json},
-       {"prediction": prediction_json},
-       {"forecast": forecast_json}
+    # result = forecast_result.ForecastResult(historical_json, prediction_json, forecast_json)
+
+    forecast_result = [
+       {"historical": historical_dict},
+       {"prediction": prediction_dict},
+       {"forecast": forecast_dict}
     ]
 
-    return {
-        'statusCode': 200,
-        'body': json.dumps(result),
-        'headers': {
-            'Content-Type': 'application/json',
-        }
+    response = {
+        "statusCode": 200,
+        "headers": {
+            "content-type": "application/json"
+        },
+        "body": forecast_result
     }
+
+    return response
