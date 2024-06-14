@@ -202,7 +202,11 @@ class _HomePageState extends State<HomePage> {
                             width: 20,
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              setState(() {
+                                // isLoading = true;
+                              });
+                            },
                             child: Card(
                               color: Colors.white,
                               shape: RoundedRectangleBorder(
@@ -228,49 +232,48 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.6,
+                      width: MediaQuery.of(context).size.width * 0.75,
                       height: MediaQuery.of(context).size.height * 0.5,
                       child: ChartScreen(),
                     ),
-                    Column(
-                      children: [
-                        Row(
-                          children: [
-                            Card(
-                              color: Colors.amber[300],
-                              child: const SizedBox(
-                                height: 20,
-                                width: 60,
-                                child: Text(
-                                  'Data',
-                                  textAlign: TextAlign.center,
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.1,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Card(
+                                color: Colors.amber[300],
+                                child: const SizedBox(
+                                  height: 20,
+                                  width: 60,
+                                  child: Text(
+                                    'Data',
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            Card(
-                              color: Colors.amber[300],
-                              child: const SizedBox(
-                                height: 20,
-                                width: 60,
-                                child: Text(
-                                  'Casos',
-                                  textAlign: TextAlign.center,
+                              Card(
+                                color: Colors.amber[300],
+                                child: const SizedBox(
+                                  height: 20,
+                                  width: 60,
+                                  child: Text(
+                                    'Casos',
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.13,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        ListScreen(),
-                      ],
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          ListScreen(),
+                        ],
+                      ),
                     ),
                   ],
                 ),
