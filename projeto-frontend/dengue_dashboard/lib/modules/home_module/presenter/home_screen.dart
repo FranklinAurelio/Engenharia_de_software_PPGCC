@@ -7,6 +7,7 @@ import 'package:dengue_dashboard/modules/home_module/widgets/drop_menu_region.da
 import 'package:dengue_dashboard/modules/home_module/widgets/drop_menu_state.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/drop_menu_town.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/gender_radio.dart';
+import 'package:dengue_dashboard/modules/home_module/widgets/list_view_screen.dart';
 import 'package:estados_municipios/estados_municipios.dart';
 import 'package:flutter/material.dart';
 
@@ -25,12 +26,14 @@ class _HomePageState extends State<HomePage> {
   bool isLoading = true;
   ValueNotifier<bool> selected = ValueNotifier(false);
   String dropdownValue = '';
+  String dropdownValueZone = '';
   String dropdownValueTown = '';
 
   Future<List<String>> getState() async {
     final controller = EstadosMunicipiosController();
     final estados = await controller.buscaTodosEstados();
-    var regiao = await readData('regiao', 3);
+    var regiao = dropdownValueZone;
+    var x = await readData('regiao', 3);
     setState(() {
       states = [];
     });
@@ -39,7 +42,7 @@ class _HomePageState extends State<HomePage> {
       print(estados[i].regiao.nome);
       if (estados[i].regiao.nome == regiao) {
         states.add(estados[i].sigla);
-      } else if (regiao == null) {
+      } else if (regiao == "") {
         states.add(estados[i].sigla);
       }
     }
@@ -49,6 +52,7 @@ class _HomePageState extends State<HomePage> {
       dropdownValue = states.first;
     });
     setState(() {
+      //dropdownValueZone = listRegion.first;
       dropdownValue = states.first;
     });
     return [];
@@ -126,16 +130,16 @@ class _HomePageState extends State<HomePage> {
                             initialSelection: listRegion.first,
                             onSelected: (String? value) async {
                               setState(() {
-                                dropdownValue = value!;
+                                dropdownValueZone = value!;
                                 isLoading = true;
                               });
                               await getState();
                               await Future.delayed(
                                 const Duration(seconds: 2),
                               );
-                              setState(() {
-                                dropdownValue = value!;
-                              });
+                              /*setState(() {
+                                dropdownValueZone = value!;
+                              });*/
                               await insertData(3, 'regiao', value);
                             },
                             dropdownMenuEntries: listRegion
@@ -153,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                             onSelected: (String? value) async {
                               setState(() {
                                 dropdownValue = value!;
-                                isLoading = true;
+                                //isLoading = true;
                               });
                               //await getTown(dropdownValue);
                               // await Future.delayed(
@@ -194,6 +198,27 @@ class _HomePageState extends State<HomePage> {
                             width: 10,
                           ),*/
                           const DropdownMenuAge(),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                // isLoading = true;
+                              });
+                            },
+                            child: Card(
+                              color: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50.0),
+                              ),
+                              child: const SizedBox(
+                                width: 50,
+                                height: 50,
+                                child: Icon(Icons.search),
+                              ),
+                            ),
+                          ),
                           Spacer(),
                         ],
                       ),
@@ -203,10 +228,54 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.05,
                 ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  child: ChartScreen(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.75,
+                      height: MediaQuery.of(context).size.height * 0.5,
+                      child: ChartScreen(),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.1,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Card(
+                                color: Colors.amber[300],
+                                child: const SizedBox(
+                                  height: 20,
+                                  width: 60,
+                                  child: Text(
+                                    'Data',
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                              Card(
+                                color: Colors.amber[300],
+                                child: const SizedBox(
+                                  height: 20,
+                                  width: 60,
+                                  child: Text(
+                                    'Casos',
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          ListScreen(),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

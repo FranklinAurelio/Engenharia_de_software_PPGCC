@@ -1,52 +1,41 @@
 class FilterDengue {
-  String? mes;
-  int? ano;
-  String? genero;
-  String? raca;
-  int? idade;
-  int? dataObito;
-  String? regiao;
-  String? uf;
-  String? municipio;
-  int? quatidadeCasos;
+  List<Forecast>? forecast;
 
-  FilterDengue(
-      {this.mes,
-      this.ano,
-      this.genero,
-      this.raca,
-      this.idade,
-      this.dataObito,
-      this.regiao,
-      this.uf,
-      this.municipio,
-      this.quatidadeCasos});
+  FilterDengue({this.forecast});
 
   FilterDengue.fromJson(Map<String, dynamic> json) {
-    mes = json['mes'];
-    ano = json['ano'];
-    genero = json['genero'];
-    raca = json['raca'];
-    idade = json['idade'];
-    dataObito = json['dataObito'];
-    regiao = json['regiao'];
-    uf = json['uf'];
-    municipio = json['municipio'];
-    quatidadeCasos = json['quatidadeCasos'];
+    if (json['forecast'] != null) {
+      forecast = <Forecast>[];
+      json['forecast'].forEach((v) {
+        forecast!.add(Forecast.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['mes'] = mes;
-    data['ano'] = ano;
-    data['genero'] = genero;
-    data['raca'] = raca;
-    data['idade'] = idade;
-    data['dataObito'] = dataObito;
-    data['regiao'] = regiao;
-    data['uf'] = uf;
-    data['municipio'] = municipio;
-    data['quatidadeCasos'] = quatidadeCasos;
+    if (forecast != null) {
+      data['forecast'] = forecast!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Forecast {
+  int? pacientes;
+  String? data;
+
+  Forecast({this.pacientes, this.data});
+
+  Forecast.fromJson(Map<String, dynamic> json) {
+    pacientes = json['pacientes'];
+    data = json['data'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['pacientes'] = pacientes;
+    data['data'] = this.data;
     return data;
   }
 }

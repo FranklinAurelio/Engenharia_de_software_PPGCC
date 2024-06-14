@@ -18,6 +18,13 @@ class _RadioGenderState extends State<RadioGender> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.cyan[200],
+      shape: const StadiumBorder(
+        side: BorderSide(
+          color: Colors.black45,
+          width: 1.0,
+        ),
+      ),
       child: SizedBox(
         height: 60,
         child: Row(
