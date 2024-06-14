@@ -1,6 +1,7 @@
 import 'package:dengue_dashboard/core/data_persist_service.dart';
 import 'package:dengue_dashboard/modules/constants/region_const.dart';
 import 'package:dengue_dashboard/modules/home_module/controllers/home_controller.dart';
+import 'package:dengue_dashboard/modules/home_module/data/filter_dengue_model.dart';
 import 'package:dengue_dashboard/modules/home_module/data/input_filter.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/charts.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/datepicker.dart';
@@ -21,6 +22,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<double> forecastValuesChart = [];
+  double maxValue = 0;
   bool isRegiao = false;
   bool isState = false;
   List<String> states = [];
@@ -84,6 +87,27 @@ class _HomePageState extends State<HomePage> {
     return [];
   }
 
+  List<double> forecastData(FilterDengue dataReturn) {
+    List<double> dataValues = [];
+    if (dataReturn.body![2].forecast != null) {
+      for (int i = 0; i < dataReturn.body![2].forecast!.length; i++) {
+        if (dataReturn.body![2].forecast![i].mesAno!.contains("2024") ||
+            dataReturn.body![2].forecast![i].mesAno!.contains("2025")) {
+          dataValues.add(dataReturn.body![2].forecast![i].previsaoCasos!);
+          if (maxValue < dataReturn.body![2].forecast![i].previsaoCasos!) {
+            setState(() {
+              maxValue = dataReturn.body![2].forecast![i].previsaoCasos!;
+            });
+          }
+        }
+      }
+    } else {
+      return [];
+    }
+
+    return dataValues;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -91,6 +115,9 @@ class _HomePageState extends State<HomePage> {
       await getState();
     });
     _controller = HomeController();
+    for (int i = 0; i < 24; i++) {
+      forecastValuesChart.add(0);
+    }
   }
 
   @override
@@ -210,9 +237,11 @@ class _HomePageState extends State<HomePage> {
                             onTap: () async {
                               setState(() {
                                 isLoading = true;
+                                forecastValuesChart = [];
                               });
                               var x = await _controller.forecast(inputData);
-                              print(x);
+                              forecastValuesChart = forecastData(x);
+                              print(forecastValuesChart.length);
                               setState(() {
                                 isLoading = false;
                               });
@@ -244,7 +273,10 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.75,
                       height: MediaQuery.of(context).size.height * 0.5,
-                      child: ChartScreen(),
+                      child: ChartScreen(
+                        valueFore: forecastValuesChart,
+                        maxValue: maxValue,
+                      ),
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.1,
