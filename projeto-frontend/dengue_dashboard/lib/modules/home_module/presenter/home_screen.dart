@@ -1,5 +1,7 @@
 import 'package:dengue_dashboard/core/data_persist_service.dart';
 import 'package:dengue_dashboard/modules/constants/region_const.dart';
+import 'package:dengue_dashboard/modules/home_module/controllers/home_controller.dart';
+import 'package:dengue_dashboard/modules/home_module/data/input_filter.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/charts.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/datepicker.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/drop_menu_age.dart';
@@ -28,7 +30,9 @@ class _HomePageState extends State<HomePage> {
   String dropdownValue = '';
   String dropdownValueZone = '';
   String dropdownValueTown = '';
-
+  late final _controller;
+  InputFilter inputData =
+      InputFilter(uf: "", genero: "", faixaEtaria: "", regiao: "");
   Future<List<String>> getState() async {
     final controller = EstadosMunicipiosController();
     final estados = await controller.buscaTodosEstados();
@@ -86,6 +90,7 @@ class _HomePageState extends State<HomePage> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await getState();
     });
+    _controller = HomeController();
   }
 
   @override
@@ -202,9 +207,14 @@ class _HomePageState extends State<HomePage> {
                             width: 20,
                           ),
                           GestureDetector(
-                            onTap: () {
+                            onTap: () async {
                               setState(() {
-                                // isLoading = true;
+                                isLoading = true;
+                              });
+                              var x = await _controller.forecast(inputData);
+                              print(x);
+                              setState(() {
+                                isLoading = false;
                               });
                             },
                             child: Card(

@@ -1,4 +1,5 @@
 import 'package:dengue_dashboard/core/http_client_interface.dart';
+import 'package:dio/browser.dart';
 import 'package:dio/dio.dart';
 
 class DioHttpService implements IHttpClient {
@@ -12,6 +13,7 @@ class DioHttpService implements IHttpClient {
       ),
     );
     // _dio.interceptors.add(DioAccessTokenInterceptor());
+    //_dio.httpClientAdapter = BrowserHttpClientAdapter(withCredentials: true);
   }
 
   @override
