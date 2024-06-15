@@ -36,6 +36,7 @@ class _HomePageState extends State<HomePage> {
   late final _controller;
   InputFilter inputData =
       InputFilter(uf: "", genero: "", faixaEtaria: "", regiao: "");
+
   Future<List<String>> getState() async {
     final controller = EstadosMunicipiosController();
     final estados = await controller.buscaTodosEstados();
@@ -48,9 +49,9 @@ class _HomePageState extends State<HomePage> {
     for (int i = 0; i < estados.length; i++) {
       print(estados[i].regiao.nome);
       if (estados[i].regiao.nome == regiao) {
-        states.add(estados[i].sigla);
+        states.add(estados[i].nome);
       } else if (regiao == "") {
-        states.add(estados[i].sigla);
+        states.add(estados[i].nome);
       }
     }
 
@@ -89,11 +90,14 @@ class _HomePageState extends State<HomePage> {
 
   List<double> forecastData(FilterDengue dataReturn) {
     List<double> dataValues = [];
-    if (dataReturn.body![2].forecast != null) {
+    maxValue = 0;
+    if (dataReturn.body != null && dataReturn.body![2].forecast != null) {
       for (int i = 0; i < dataReturn.body![2].forecast!.length; i++) {
         if (dataReturn.body![2].forecast![i].mesAno!.contains("2024") ||
             dataReturn.body![2].forecast![i].mesAno!.contains("2025")) {
-          dataValues.add(dataReturn.body![2].forecast![i].previsaoCasos!);
+          dataValues.add(double.parse(dataReturn
+              .body![2].forecast![i].previsaoCasos!
+              .toStringAsFixed(2)));
           if (maxValue < dataReturn.body![2].forecast![i].previsaoCasos!) {
             setState(() {
               maxValue = dataReturn.body![2].forecast![i].previsaoCasos!;
@@ -102,7 +106,9 @@ class _HomePageState extends State<HomePage> {
         }
       }
     } else {
-      return [];
+      for (int i = 0; i < 24; i++) {
+        dataValues.add(0);
+      }
     }
 
     return dataValues;
@@ -113,6 +119,10 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await getState();
+      await insertData(3, 'estado', '');
+      await insertData(3, 'genero', '');
+      await insertData(3, 'idade', '');
+      await insertData(3, 'regiao', '');
     });
     _controller = HomeController();
     for (int i = 0; i < 24; i++) {
@@ -235,10 +245,21 @@ class _HomePageState extends State<HomePage> {
                           ),
                           GestureDetector(
                             onTap: () async {
+                              String ufValue = await readData('estado', 3);
+                              String generoValue = await readData('genero', 3);
+                              String faixaValue = await readData('idade', 3);
+                              String ragiaoValue = await readData('regiao', 3);
                               setState(() {
                                 isLoading = true;
                                 forecastValuesChart = [];
+
+                                inputData = InputFilter(
+                                    uf: ufValue,
+                                    genero: generoValue,
+                                    faixaEtaria: faixaValue,
+                                    regiao: ragiaoValue);
                               });
+
                               var x = await _controller.forecast(inputData);
                               forecastValuesChart = forecastData(x);
                               print(forecastValuesChart.length);
@@ -279,7 +300,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.1,
+                      width: MediaQuery.of(context).size.width * 0.15,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -313,7 +334,9 @@ class _HomePageState extends State<HomePage> {
                           const SizedBox(
                             height: 20,
                           ),
-                          ListScreen(),
+                          ListScreen(
+                            cases: forecastValuesChart,
+                          ),
                         ],
                       ),
                     ),

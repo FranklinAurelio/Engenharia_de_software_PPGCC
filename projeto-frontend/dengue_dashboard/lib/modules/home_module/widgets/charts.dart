@@ -248,7 +248,11 @@ class _ChartScreenState extends State<ChartScreen> {
       minX: 0,
       maxX: 23,
       minY: 0,
-      maxY: widget.maxValue == 0 ? 0 : widget.maxValue + 1000,
+      maxY: widget.maxValue == 0
+          ? 0
+          : widget.maxValue > 10000
+              ? widget.maxValue + 1000
+              : widget.maxValue + 100,
       lineBarsData: [
         LineChartBarData(
           spots: [

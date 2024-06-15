@@ -16,15 +16,8 @@ class CustomerDatasourceImplementation implements ICustomerDatasource {
     try {
       final response = await httpClient.post(
           'https://ew4n1xndv4.execute-api.us-east-1.amazonaws.com/dev/',
-          data: {
-            "genero": "F",
-            "faixa_etaria": "Adultos",
-            "uf": "São Paulo",
-            "regiao": "Sudeste"
-          },
-          headers: {
-            "content-type": "application/json"
-          });
+          data: params.toJson(),
+          headers: {"content-type": "application/json"});
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         return FilterDengue.fromJson(response.data);
