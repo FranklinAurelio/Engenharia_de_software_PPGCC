@@ -15,11 +15,9 @@ class CustomerDatasourceImplementation implements ICustomerDatasource {
   Future<FilterDengue> forecast(InputFilter params) async {
     try {
       final response = await httpClient.post(
-          'url/users/newzua/v1/membership/signIn',
+          'https://ew4n1xndv4.execute-api.us-east-1.amazonaws.com/dev/',
           data: params.toJson(),
-          headers: {
-            'client_id': '',
-          });
+          headers: {"content-type": "application/json"});
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         return FilterDengue.fromJson(response.data);
@@ -31,7 +29,7 @@ class CustomerDatasourceImplementation implements ICustomerDatasource {
         throw ServerException();
       }
     } catch (e) {
-      Modular.to.pushNamed('/auth/');
+      Modular.to.pushNamed('/');
       throw ServerException();
     }
   }

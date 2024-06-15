@@ -1,5 +1,8 @@
 import 'package:dengue_dashboard/core/data_persist_service.dart';
 import 'package:dengue_dashboard/modules/constants/region_const.dart';
+import 'package:dengue_dashboard/modules/home_module/controllers/home_controller.dart';
+import 'package:dengue_dashboard/modules/home_module/data/filter_dengue_model.dart';
+import 'package:dengue_dashboard/modules/home_module/data/input_filter.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/charts.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/datepicker.dart';
 import 'package:dengue_dashboard/modules/home_module/widgets/drop_menu_age.dart';
@@ -19,6 +22,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<double> forecastValuesChart = [];
+  double maxValue = 0;
   bool isRegiao = false;
   bool isState = false;
   List<String> states = [];
@@ -28,6 +33,9 @@ class _HomePageState extends State<HomePage> {
   String dropdownValue = '';
   String dropdownValueZone = '';
   String dropdownValueTown = '';
+  late final _controller;
+  InputFilter inputData =
+      InputFilter(uf: "", genero: "", faixaEtaria: "", regiao: "");
 
   Future<List<String>> getState() async {
     final controller = EstadosMunicipiosController();
@@ -41,9 +49,9 @@ class _HomePageState extends State<HomePage> {
     for (int i = 0; i < estados.length; i++) {
       print(estados[i].regiao.nome);
       if (estados[i].regiao.nome == regiao) {
-        states.add(estados[i].sigla);
+        states.add(estados[i].nome);
       } else if (regiao == "") {
-        states.add(estados[i].sigla);
+        states.add(estados[i].nome);
       }
     }
 
@@ -80,12 +88,46 @@ class _HomePageState extends State<HomePage> {
     return [];
   }
 
+  List<double> forecastData(FilterDengue dataReturn) {
+    List<double> dataValues = [];
+    maxValue = 0;
+    if (dataReturn.body != null && dataReturn.body![2].forecast != null) {
+      for (int i = 0; i < dataReturn.body![2].forecast!.length; i++) {
+        if (dataReturn.body![2].forecast![i].mesAno!.contains("2024") ||
+            dataReturn.body![2].forecast![i].mesAno!.contains("2025")) {
+          dataValues.add(double.parse(dataReturn
+              .body![2].forecast![i].previsaoCasos!
+              .toStringAsFixed(2)));
+          if (maxValue < dataReturn.body![2].forecast![i].previsaoCasos!) {
+            setState(() {
+              maxValue = dataReturn.body![2].forecast![i].previsaoCasos!;
+            });
+          }
+        }
+      }
+    } else {
+      for (int i = 0; i < 24; i++) {
+        dataValues.add(0);
+      }
+    }
+
+    return dataValues;
+  }
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await getState();
+      await insertData(3, 'estado', '');
+      await insertData(3, 'genero', '');
+      await insertData(3, 'idade', '');
+      await insertData(3, 'regiao', '');
     });
+    _controller = HomeController();
+    for (int i = 0; i < 24; i++) {
+      forecastValuesChart.add(0);
+    }
   }
 
   @override
@@ -202,9 +244,27 @@ class _HomePageState extends State<HomePage> {
                             width: 20,
                           ),
                           GestureDetector(
-                            onTap: () {
+                            onTap: () async {
+                              String ufValue = await readData('estado', 3);
+                              String generoValue = await readData('genero', 3);
+                              String faixaValue = await readData('idade', 3);
+                              String ragiaoValue = await readData('regiao', 3);
                               setState(() {
-                                // isLoading = true;
+                                isLoading = true;
+                                forecastValuesChart = [];
+
+                                inputData = InputFilter(
+                                    uf: ufValue,
+                                    genero: generoValue,
+                                    faixaEtaria: faixaValue,
+                                    regiao: ragiaoValue);
+                              });
+
+                              var x = await _controller.forecast(inputData);
+                              forecastValuesChart = forecastData(x);
+                              print(forecastValuesChart.length);
+                              setState(() {
+                                isLoading = false;
                               });
                             },
                             child: Card(
@@ -234,10 +294,13 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.75,
                       height: MediaQuery.of(context).size.height * 0.5,
-                      child: ChartScreen(),
+                      child: ChartScreen(
+                        valueFore: forecastValuesChart,
+                        maxValue: maxValue,
+                      ),
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.1,
+                      width: MediaQuery.of(context).size.width * 0.15,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -271,7 +334,9 @@ class _HomePageState extends State<HomePage> {
                           const SizedBox(
                             height: 20,
                           ),
-                          ListScreen(),
+                          ListScreen(
+                            cases: forecastValuesChart,
+                          ),
                         ],
                       ),
                     ),

@@ -8,7 +8,7 @@ class InputFilter {
 
   InputFilter.fromJson(Map<String, dynamic> json) {
     genero = json['genero'];
-    faixaEtaria = json['faixaEtaria'];
+    faixaEtaria = json['faixa_etaria'];
     uf = json['uf'];
     regiao = json['regiao'];
   }
@@ -16,7 +16,7 @@ class InputFilter {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['genero'] = genero;
-    data['faixaEtaria'] = faixaEtaria;
+    data['faixa_etaria'] = faixaEtaria;
     data['uf'] = uf;
     data['regiao'] = regiao;
     return data;

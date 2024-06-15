@@ -59,7 +59,7 @@ class _RadioGenderState extends State<RadioGender> {
                 setState(() {
                   _gender = value;
                 });
-                await insertData(3, 'genero', 'masculino');
+                await insertData(3, 'genero', 'M');
               },
             ),
             const SizedBox(
@@ -79,7 +79,7 @@ class _RadioGenderState extends State<RadioGender> {
                 setState(() {
                   _gender = value;
                 });
-                await insertData(3, 'genero', 'feminino');
+                await insertData(3, 'genero', 'F');
               },
             ),
             const SizedBox(
