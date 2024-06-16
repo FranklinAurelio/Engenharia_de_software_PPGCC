@@ -1,7 +1,7 @@
 const List<String> listRegion = <String>[
   'Norte',
   'Nordeste',
-  'Centro-oeste',
+  'Centro-Oeste',
   'Sudeste',
   'Sul'
 ];
