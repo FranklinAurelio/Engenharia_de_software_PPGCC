@@ -34,6 +34,10 @@ class _HomePageState extends State<HomePage> {
   String dropdownValueZone = '';
   String dropdownValueTown = '';
   late final _controller;
+  String ufValue = '';
+  String generoValue = '';
+  String faixaValue = '';
+  String ragiaoValue = '';
   InputFilter inputData =
       InputFilter(uf: "", genero: "", faixaEtaria: "", regiao: "");
 
@@ -91,7 +95,9 @@ class _HomePageState extends State<HomePage> {
   List<double> forecastData(FilterDengue dataReturn) {
     List<double> dataValues = [];
     maxValue = 0;
-    if (dataReturn.body != null && dataReturn.body![2].forecast != null) {
+    if (dataReturn.body != null &&
+        dataReturn.body![2].forecast != null &&
+        dataReturn.body![2].forecast!.isNotEmpty) {
       for (int i = 0; i < dataReturn.body![2].forecast!.length; i++) {
         if (dataReturn.body![2].forecast![i].mesAno!.contains("2024") ||
             dataReturn.body![2].forecast![i].mesAno!.contains("2025")) {
@@ -173,7 +179,7 @@ class _HomePageState extends State<HomePage> {
                             onSelected: (String? value) async {
                               setState(() {
                                 dropdownValueZone = value!;
-                                isLoading = true;
+                                //isLoading = true;
                               });
                               await getState();
                               await Future.delayed(
@@ -245,10 +251,10 @@ class _HomePageState extends State<HomePage> {
                           ),
                           GestureDetector(
                             onTap: () async {
-                              String ufValue = await readData('estado', 3);
-                              String generoValue = await readData('genero', 3);
-                              String faixaValue = await readData('idade', 3);
-                              String ragiaoValue = await readData('regiao', 3);
+                              ufValue = await readData('estado', 3);
+                              generoValue = await readData('genero', 3);
+                              faixaValue = await readData('idade', 3);
+                              ragiaoValue = await readData('regiao', 3);
                               setState(() {
                                 isLoading = true;
                                 forecastValuesChart = [];
@@ -288,6 +294,13 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.05,
                 ),
+                ufValue != '' ||
+                        generoValue != '' ||
+                        faixaValue != '' ||
+                        ragiaoValue != ''
+                    ? Text(
+                        'Exibido resultados para: Região: $ragiaoValue, Estado: $ufValue, Gênero: ${generoValue == 'M' ? 'Maculino' : generoValue == 'F' ? 'Feminino' : ''}, Faixa etária: $faixaValue')
+                    : const SizedBox(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
