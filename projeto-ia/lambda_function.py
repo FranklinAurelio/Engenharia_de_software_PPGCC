@@ -36,15 +36,8 @@ def lambda_handler(event, context):
                                                         for index, row in historical.iterrows()]
 
     forecast_dict = [forecst.to_dict() for forecst in forecast_dataframe]
-    # forecast_json = json.dumps(forecast_dict)
-
     prediction_dict = [predict.to_dict() for predict in prediction_dataframe]
-    # prediction_json = json.dumps(prediction_dict)
-
     historical_dict = [historic.to_dict() for historic in historical_dataframe]
-    # historical_json = json.dumps(historical_dict)
-
-    # result = forecast_result.ForecastResult(historical_json, prediction_json, forecast_json)
 
     forecast_result = [
        {"historical": historical_dict},

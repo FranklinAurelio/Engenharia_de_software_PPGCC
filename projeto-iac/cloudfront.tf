@@ -15,7 +15,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     domain_name              = aws_s3_bucket.s3_bucket.bucket_regional_domain_name
     origin_access_control_id = aws_cloudfront_origin_access_control.origin_access_control.id
     origin_id                = aws_s3_bucket.s3_bucket.id
-    # origin_path              = "/"
   }
 
   enabled             = true
@@ -29,8 +28,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     response_page_path    = "/index.html"
     error_caching_min_ttl = 10
   }
-
-  #   aliases = ["mysite.example.com", "yoursite.example.com"]
 
   default_cache_behavior {
     allowed_methods        = ["GET", "HEAD"]
