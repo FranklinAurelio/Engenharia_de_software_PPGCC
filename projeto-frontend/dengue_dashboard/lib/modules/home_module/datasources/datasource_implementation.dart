@@ -15,7 +15,7 @@ class CustomerDatasourceImplementation implements ICustomerDatasource {
   Future<FilterDengue> forecast(InputFilter params) async {
     try {
       final response = await httpClient.post(
-          'https://ew4n1xndv4.execute-api.us-east-1.amazonaws.com/dev/',
+          'https://zxbijx45b0.execute-api.us-east-1.amazonaws.com/dev/obter-forecast',
           data: params.toJson(),
           headers: {"content-type": "application/json"});
 
