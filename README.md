@@ -1,7 +1,7 @@
 # Engenharia_de_software_PPGCC
 
 ## Github Pages
-[Github Pages](https://alissonf216.github.io/modelo-documentacao-projetos/)
+[Site do Projeto](https://alissonf216.github.io/modelo-documentacao-projetos/)
 
 ## PROJETO: Modelo de FORECASTING Dengue no Brasil 
 
@@ -28,8 +28,12 @@ Sampaio, Vanderson; Endo, Patricia; Lynn, Theo; Oliveira, Thomás; Silva Neto, S
 - Alisson Franclin
 
 
+## Arquitetura da Solução
+<img src="https://github.com/FranklinAurelio/Engenharia_de_software_PPGCC/blob/main/Arquitetura%20da%20solu%C3%A7%C3%A3o.png">
+
+
 ## Task Board
-[Board](https://github.com/users/FranklinAurelio/projects/1/views/1)
+[Board Kanban](https://github.com/users/FranklinAurelio/projects/1/views/1)
 
 
 ### PLANO DE ESCOPO
